@@ -1,0 +1,46 @@
+{% extends "../parent.njk" %}
+
+{% block header %}
+    <h1>{{title}}</h1>
+    <h2><a href="/rotacija/list">Cancel</a></h2>
+    <hr>
+{% endblock %}
+
+{% block body %}
+
+    <form action="/rotacija/{{doc._id}}/update" method="post">
+      
+        <div class="form-group col-md-6">
+            <label for="prezime_ime">Prezime-Ime:</label>
+            <input type="text" name="prezime_ime" id="prezime_ime" class="form-control" value="{{doc.prezime_ime}}">
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="opaska">Text:</label>
+            <textarea name="opaska" id="opaska" cols="30" rows="10" class="form-control" >{{doc.opaska}}</textarea>
+        </div>
+
+            <div class="form-group col-md-5">
+                <div>
+                    <label for="brojDana">Ponoviti za broj dana OD DANAS:</label>
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <div>
+                    <input type="number" name="brojDana" id="brojDana" value="{{doc.brojDana}}" class="form-control">
+                </div>
+            </div>
+
+        <div class="form-group col-md-6">
+            <input type="submit"class="btn btn-primary btn-lg" value="Potvrdi novi unos" class="form-control">
+        </div>
+
+    </form>
+{% endblock %}
+
+{% block left %}
+{% endblock %}
+
+{% block right %}
+{% endblock %}
+

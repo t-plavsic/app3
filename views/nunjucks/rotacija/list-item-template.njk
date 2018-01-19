@@ -1,0 +1,14 @@
+
+<li class="list-group-item">
+   {{ item.datumFutureFormated }} - {{ item.prezime_ime | upper }} 
+  
+    <div>
+        {{ item.opaska }}
+    </div>
+
+    <span> <a href="{{item.url}}/update">edit</a></span>
+    -
+    <span> <a href="{{item.url}}/delete">del</a></span>
+    
+
+</li>

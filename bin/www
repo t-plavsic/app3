@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+var app = require('../app');
+var debug = require('debug')('app3:server');
+var http = require('http');
+
+var config = require('../config');
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Get port from environment and store in Express.
+ */
+var port = normalizePort(process.env.PORT || '3003')
+//and store in Express:
+//app.set('port', port);
+
+
+//Database-------------------------------------------
+var db = require('../db.js');
+
+console.log('Connecting db ...')
+db.connect(config.dbUrl, function (err) {
+
+  if (err) {
+    console.log('Mongoose: Unable to connect to Mongo. Exiting procces!')
+    process.exit(1)
+  } else {
+
+    //export content of www file to createHttpServer.js
+    /*
+      module.exports = function () {  
+        www file...
+      }
+    */
+
+    //Create HTTP server
+    var createHttpServer = require('./createHttpServer.js');
+    console.log('Creating server ...')
+    createHttpServer(http, port, app, debug);
+
+  }
+
+});//---------------------------------------------------
+
+
+

@@ -1,0 +1,29 @@
+{% extends "../parent.njk" %}
+
+{% block header %}
+    <h1>{{title}}</h1>
+    <h2><a href="/rotacija/list">Cancel</a></h2>
+    <hr>
+{% endblock %}
+
+{% block body %}
+
+    <form action="/rotacija/{{doc._id}}/delete" method="post">
+
+        <label>Prezime-Ime:</label>
+        <span>{{doc.prezime_ime}}</span>
+
+       <div>
+            <textarea name="" id="" cols="30" rows="10" readonly>{{doc.opaska}}</textarea>
+       </div>
+
+        <input type="submit"class="btn btn-danger"  value="OBRIŠI unos">
+
+    </form>
+{% endblock %}
+
+{% block left %}
+{% endblock %}
+
+{% block right %}
+{% endblock %}

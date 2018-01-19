@@ -1,0 +1,41 @@
+{% extends "../parent.njk" %}
+
+{% block header %}
+    <h1>{{title}}</h1>
+    <h2><a href="/rotacija/list">Cancel</a></h2>
+    <hr>
+{% endblock %}
+
+{% block body %}
+
+    <form action="/rotacija/create" method="post">
+
+        <div class="form-group col-md-6">
+            <label for="prezime_ime">Prezime-Ime:</label>
+            <input type="text" name="prezime_ime" id="prezime_ime" class="form-control">
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="opaska">Text:</label>
+            <textarea name="opaska" id="opaska" cols="30" rows="10" class="form-control" ></textarea>
+        </div>
+
+        <div class="form-group col-md-2">
+            <div>
+                <label for="brojDana">Broj dana:</label>
+                <input type="number" name="brojDana" id="brojDana" value="90" class="form-control">
+            </div>
+            <br>
+            <div>
+                <input type="submit"class="btn btn-primary btn-lg" value="POTVRDI novi unos" class="form-control">
+            </div>
+        </div>
+        
+    </form>
+{% endblock %}
+
+{% block left %}
+{% endblock %}
+
+{% block right %}
+{% endblock %}

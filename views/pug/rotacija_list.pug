@@ -1,0 +1,10 @@
+
+h1= title
+p Welcome to: #{title}
+
+ul
+ each rot in rotacija_list
+  li 
+   |  #{rot.prezime_ime}  #{rot.opaska} 
+ else
+  li There are no records.
