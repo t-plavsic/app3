@@ -23,6 +23,20 @@ router.post('/', (req, res) => {
   })
 
 });
+// POST /users/login {username, password}
+router.post('/login', (req, res) => {
+  var body = _.pick(req.body, ['username', 'password']);
+
+  User.findByCredentials(body.username, body.password).then((user) => {
+    return user.generateAuthToken().then((token) => {
+      res.header('x-auth', token).send(user);
+    });
+  }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+
 
 router.get('/me', authenticate, (req, res) => {
   res.send(req.user);
