@@ -3,6 +3,7 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const config = require('../config');
+const bcrypt = require('bcryptjs');
 
 var Schema = mongoose.Schema;
 
@@ -30,6 +31,9 @@ var userSchema = new Schema({
         type: String,
         required: true,
         minlength: 2
+      },
+      hashedPassword: {
+        type: String
       },
       tokens: [{
         access: {
@@ -78,6 +82,21 @@ userSchema.statics.findByToken = function (token) {
     'tokens.access': 'auth'
   });
 };
+
+userSchema.pre('save', function (next) {
+  var user = this;
+
+  if (user.isModified('password')) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.hashedPassword = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
 
 //Export model
 module.exports = mongoose.model('User', userSchema);
