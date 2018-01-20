@@ -2,6 +2,7 @@ var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/userModel');
+var authenticate = require('../middleware/authenticate');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -21,6 +22,10 @@ router.post('/', (req, res) => {
     res.status(400).send(e);
   })
 
+});
+
+router.get('/me', authenticate, (req, res) => {
+  res.send(req.user);
 });
 
 module.exports = router;
