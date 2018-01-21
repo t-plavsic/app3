@@ -19,15 +19,20 @@ router.post('/', authenticate, (req, res) => {
     });
 });
 
-router.get('/', authenticate, (req, res) => {
-    Todo.find({
-        _creator: req.user._id
-    }).then((todos) => {
-        res.send({ todos });
-    }, (e) => {
-        res.status(400).send(e);
-    });
+router.get('/', (req, res) => {
+    res.render('todos/index.njk');
 });
+
+// router.get('/', authenticate, (req, res) => {
+//     Todo.find({
+//         _creator: req.user._id
+//     }).then((todos) => {
+//         res.send({ todos });
+//     }, (e) => {
+//         res.status(400).send(e);
+//     });
+// });
+
 
 router.get('/:id', authenticate, (req, res) => {
     var id = req.params.id;

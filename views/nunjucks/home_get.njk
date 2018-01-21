@@ -1,1 +1,18 @@
-HOME
+{% extends "./parent.njk" %}
+
+{% block header %}
+    <h1>{{title}}</h1>
+    <hr>
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+{% block left %}
+<h3><a href="/rotacija">Rotacija</a></h3>
+<h3><a href="/todos">TODO</a></h3>
+{% endblock %}
+
+{% block right %}
+<h3><a href="/login">Login</a></h3>
+{% endblock %}
