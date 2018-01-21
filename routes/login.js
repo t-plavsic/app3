@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render('./login_get.njk', {title: 'LOGIN PAGE'});
+    res.render('./login_get.njk', {title: 'LOGIN'});
 });
 
 
@@ -12,3 +12,4 @@ router.get('/', (req, res) => {
 
 
 module.exports = router;
+ 
