@@ -20,7 +20,14 @@ router.post('/', authenticate, (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    res.render('todos/index.njk');
+    
+    Todo.find({}).then((todos) => {
+      //res.send({ todos });
+        res.render('todos/index.njk', {todos});
+    }, (e) => {
+        res.status(400).send(e);
+    });
+
 });
 
 // router.get('/', authenticate, (req, res) => {
