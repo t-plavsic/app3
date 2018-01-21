@@ -17,14 +17,17 @@ router.post('/', authenticate, (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     });
+}); 
+
+router.get('/', (req, res) => {
+    res.render('todos/index.njk', { title: 'TODO-index' });
 });
 
- 
-router.get('/', (req, res) => {
-    
+router.get('/list', (req, res) => {
+
     Todo.find({}).then((todos) => {
-      //res.send({ todos });
-        res.render('todos/index.njk', {todos});
+        //res.send({ todos });
+        res.render('todos/todos_list.njk', { todos });
     }, (e) => {
         res.status(400).send(e);
     });
@@ -44,10 +47,10 @@ router.get('/', (req, res) => {
 
 router.get('/:id', authenticate, (req, res) => {
     var id = req.params.id;
-    
-    console.log('item: ',id)
-    console.log('user: ',req.user._id)
-    
+
+    console.log('item: ', id)
+    console.log('user: ', req.user._id)
+
     if (!ObjectID.isValid(id)) {
         return res.status(404).send('ObjectID not valid.');
     }

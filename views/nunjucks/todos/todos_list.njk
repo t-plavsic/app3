@@ -1,0 +1,29 @@
+{% extends "../parent.njk" %}
+
+{% block header %}    
+    <h1>{{title}}</h1>
+    <h2><a class="btn btn-primary btn-lg" href="/rotacija/create">NOVI unos</a></h2>
+    <hr>
+{% endblock %}
+
+{% block body %}
+ 
+<ul class="list-group">
+    {% for item in todos %}
+        <li class="list-group-item">
+            <div>
+                {{ item.text }}
+            </div>
+        </li>
+      {% else %}
+        <li>Nema postojećih unosa za TODO. Lista ja prazna.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block left %}
+{% endblock %}
+
+{% block right %}
+{% endblock %}
