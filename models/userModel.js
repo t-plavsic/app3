@@ -112,13 +112,22 @@ userSchema.statics.findByCredentials = function (username, password) {
         if (res) {
           resolve(user);
         } else {
-          reject();
+          reject('Invalid password.');
         }
       });
     });
   });
 };
 
+userSchema.methods.removeToken = function (token) {
+  var user = this;
+
+  return user.update({
+    $pull: {
+      tokens: {token}
+    }
+  });
+};
 
 //Export model
 module.exports = mongoose.model('User', userSchema);

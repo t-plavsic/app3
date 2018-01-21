@@ -32,15 +32,22 @@ router.post('/login', (req, res) => {
       res.header('x-auth', token).send(user);
     });
   }).catch((e) => {
-    res.status(400).send();
+    res.status(400).send(e);
   });
 });
-
-
 
 router.get('/me', authenticate, (req, res) => {
   res.send(req.user);
 });
+
+router.delete('/me/token', authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(() => {
+    res.status(200).send('Token deleted');
+  }, () => {
+    res.status(400).send();
+  });
+});
+
 
 module.exports = router;
 
