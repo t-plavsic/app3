@@ -19,7 +19,7 @@ router.post('/', authenticate, (req, res) => {
     });
 });
 
-
+ 
 router.get('/', (req, res) => {
     
     Todo.find({}).then((todos) => {
