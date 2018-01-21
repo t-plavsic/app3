@@ -6,7 +6,13 @@ var authenticate = require('../middleware/authenticate');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+  
+  User.find({}).then((users) => {
+    res.send({users});
+  }, (e) => {
+    res.status(400).send(e);
+  });
+  
 });
 
 // POST /users
