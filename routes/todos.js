@@ -6,18 +6,6 @@ var Todo = require('../models/todoModel');
 var authenticate = require('../middleware/authenticate');
 var ObjectID = require('mongodb').ObjectID;
 
-router.post('/', authenticate, (req, res) => {
-    var todo = new Todo({
-        text: req.body.text,
-        _creator: req.user._id
-    });
-
-    todo.save().then((doc) => {
-        res.send(doc);
-    }, (e) => {
-        res.status(400).send(e);
-    });
-}); 
 
 router.get('/', (req, res) => {
     res.render('todos/index.njk', { title: 'TODO-index' });
@@ -43,6 +31,19 @@ router.get('/list', (req, res) => {
 //         res.status(400).send(e);
 //     });
 // });
+
+router.post('/', authenticate, (req, res) => {
+    var todo = new Todo({
+        text: req.body.text,
+        _creator: req.user._id
+    });
+
+    todo.save().then((doc) => {
+        res.send(doc);
+    }, (e) => {
+        res.status(400).send(e);
+    });
+}); 
 
 
 router.get('/:id', authenticate, (req, res) => {
