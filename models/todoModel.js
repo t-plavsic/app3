@@ -23,6 +23,13 @@ var todoSchema = new Schema( {
       }
   });
   
+ // Virtual for rotacija's URL
+RotacijaSchema
+.virtual('url')
+.get(function () {
+  return '/todos/' + this._id;
+});
+
 //Export model
 module.exports = mongoose.model('Todo', todoSchema);
 

@@ -2,7 +2,7 @@
 
 {% block header %}    
     <h1>{{title}}</h1>
-    <h2><a class="btn btn-primary btn-lg" href="/rotacija/create">NOVI unos</a></h2>
+    <h2><a class="btn btn-primary btn-lg" href="/todos/create">NOVI unos</a></h2>
     <hr>
 {% endblock %}
 
@@ -15,6 +15,9 @@
                 {{ item.text }}
             </div>
         </li>
+        <span> <a href="{{item.url}}/update">edit</a></span>
+        -
+        <span> <a href="{{item.url}}/delete">del</a></span>
       {% else %}
         <li>Nema postojećih unosa za TODO. Lista ja prazna.</li>
     {% endfor %}

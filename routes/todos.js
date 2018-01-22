@@ -32,10 +32,13 @@ router.get('/list', (req, res) => {
 //     });
 // });
 
-router.post('/', authenticate, (req, res) => {
+router.get('/create', (req, res) => {
+    res.render('todos/create.njk', { title: 'NOVI UNOS - todos' });
+});
+
+router.post('/create',  (req, res) => {
     var todo = new Todo({
         text: req.body.text,
-        _creator: req.user._id
     });
 
     todo.save().then((doc) => {
@@ -43,7 +46,21 @@ router.post('/', authenticate, (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     });
+
 }); 
+
+// router.post('/', authenticate, (req, res) => {
+//     var todo = new Todo({
+//         text: req.body.text,
+//         _creator: req.user._id
+//     });
+
+//     todo.save().then((doc) => {
+//         res.send(doc);
+//     }, (e) => {
+//         res.status(400).send(e);
+//     });
+// }); 
 
 
 router.get('/:id', authenticate, (req, res) => {
