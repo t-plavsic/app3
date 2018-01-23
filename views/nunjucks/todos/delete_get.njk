@@ -1,0 +1,27 @@
+{% extends "../parent.njk" %}
+
+{% block header %}
+    <h1>{{title}}</h1>
+    <h2><a href="/todos/list">Cancel</a></h2>
+    <hr>
+{% endblock %}
+
+{% block body %}
+
+    <form action="/todos/{{doc._id}}/delete" method="post">
+
+        <label>Text:</label>
+        <div>
+            <textarea name="text" id="text" cols="30" rows="10" readonly>{{doc.text}}</textarea>
+        </div>
+
+        <input type="submit"class="btn btn-danger"  value="OBRIŠI unos">
+
+    </form>
+{% endblock %}
+
+{% block left %}
+{% endblock %}
+
+{% block right %}
+{% endblock %}

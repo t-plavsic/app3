@@ -22,72 +22,47 @@ router.get('/list', (req, res) => {
 
 });
 
-// router.get('/', authenticate, (req, res) => {
-//     Todo.find({
-//         _creator: req.user._id
-//     }).then((todos) => {
-//         res.send({ todos });
-//     }, (e) => {
-//         res.status(400).send(e);
-//     });
-// });
-
 router.get('/create', (req, res) => {
-    res.render('todos/create.njk', { title: 'NOVI UNOS - todos' });
+    res.render('todos/create_get.njk', { title: 'NOVI UNOS - todos' });
 });
 
-router.post('/create',  (req, res) => {
+router.post('/create', (req, res) => {
     var todo = new Todo({
         text: req.body.text,
     });
 
     todo.save().then((doc) => {
-        res.send(doc);
+        res.redirect('/todos/list');
     }, (e) => {
         res.status(400).send(e);
     });
 
-}); 
-
-// router.post('/', authenticate, (req, res) => {
-//     var todo = new Todo({
-//         text: req.body.text,
-//         _creator: req.user._id
-//     });
-
-//     todo.save().then((doc) => {
-//         res.send(doc);
-//     }, (e) => {
-//         res.status(400).send(e);
-//     });
-// }); 
+});
 
 
-router.get('/:id', authenticate, (req, res) => {
+router.get('/:id/delete', (req, res) => {
     var id = req.params.id;
-
-    console.log('item: ', id)
-    console.log('user: ', req.user._id)
 
     if (!ObjectID.isValid(id)) {
         return res.status(404).send('ObjectID not valid.');
     }
 
     Todo.findOne({
-        _id: id,
-        _creator: req.user._id
+        _id: id
+        //,_creator: req.user._id
     }).then((todo) => {
         if (!todo) {
             return res.status(404).send();
         }
-
-        res.send({ todo });
+        res.render('todos/delete_get.njk', { title: 'BRISANJE UNOSA - todos', doc: todo });
+        //res.send({ todo });
     }).catch((e) => {
         res.status(400).send();
     });
+
 });
 
-router.delete('/:id', authenticate, (req, res) => {
+router.post('/:id/delete', (req, res) => {
     var id = req.params.id;
 
     if (!ObjectID.isValid(id)) {
@@ -95,47 +70,61 @@ router.delete('/:id', authenticate, (req, res) => {
     }
 
     Todo.findOneAndRemove({
-        _id: id,
-        _creator: req.user._id
+        _id: id
+        //,_creator: req.user._id
     }).then((todo) => {
         if (!todo) {
             return res.status(404).send();
         }
-
-        res.send({ todo });
+        //res.send({ todo });
+        res.redirect('/todos/list');
     }).catch((e) => {
         res.status(400).send();
     });
 });
 
-router.patch('/:id', authenticate, (req, res) => {
+router.get('/:id/update', (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['text', 'completed']);
 
-    console.log('body: ', body)
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send('ObjectID not valid.');
+    }
+
+    Todo.findOne({
+        _id: id
+        //,_creator: req.user._id
+    }).then((todo) => {
+        if (!todo) {
+            return res.status(404).send();
+        }
+        res.render('todos/update_get.njk', { title: 'PROMJENA UNOSA - todos', doc: todo });
+        //res.send({ todo });
+    }).catch((e) => {
+        res.status(400).send();
+    });
+
+});
+
+router.post('/:id/update', (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['text']);
 
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
 
-    if (_.isBoolean(body.completed) && body.completed) {
-        body.completedAt = new Date().getTime();
-    } else {
-        body.completed = false;
-        body.completedAt = null;
-    }
-
-    Todo.findOneAndUpdate({ _id: id, _creator: req.user._id }, { $set: body }, { new: true }).then((todo) => {
+    Todo.findOneAndUpdate({ _id: id }, { $set: body }, { new: true }).then((todo) => {
         if (!todo) {
             return res.status(404).send();
         }
 
-        res.send({ todo });
+        //res.send({ todo });
+        res.redirect('/todos/list');
+
     }).catch((e) => {
         res.status(400).send();
     })
 });
-
 
 
 module.exports = router;
