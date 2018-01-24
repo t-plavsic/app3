@@ -1,6 +1,10 @@
 
 db
+<<<<<<< HEAD
 config-remote.js
+=======
+
+>>>>>>> 904da0db5444f455122d4cc0555365c1aed1fc8d
 
 package-lock.json
 node_modules
