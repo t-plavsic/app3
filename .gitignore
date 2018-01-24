@@ -1,6 +1,6 @@
 
 db
-config.js
+config-remote.js
 
 package-lock.json
 node_modules

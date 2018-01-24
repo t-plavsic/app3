@@ -6,19 +6,22 @@
 
 {% block body %}
 
-<div class="form-group ">
-    <label for="username">username:</label>
-    <input type="text" name="username" id="username" class="form-control">
-</div>
+<form action="/login" method="post">
 
-<div class="form-group ">
-    <label for="password">password:</label>
-    <input type="text" name="password" id="password" class="form-control">
-</div>
-<div>
-    <input type="submit"class="btn btn-primary btn-lg" value="LOGIN" class="form-control">
-</div>
-
+    <div class="form-group ">
+        <label for="username">username:</label>
+        <input type="text" name="username" id="username" class="form-control">
+    </div>
+    
+    <div class="form-group ">
+        <label for="password">password:</label>
+        <input type="text" name="password" id="password" class="form-control">
+    </div>
+    <div>
+        <input type="submit"class="btn btn-primary btn-lg" value="LOGIN" class="form-control">
+    </div>
+    
+</form>
 
 {% endblock %}
 
