@@ -34,4 +34,3 @@ var getUserFromToken = (req, res, next) => {
 
 module.exports = getUserFromToken;
 
-
