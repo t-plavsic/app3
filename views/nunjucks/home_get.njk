@@ -14,5 +14,11 @@
 {% endblock %}
 
 {% block right %}
-<h3><a href="/login">Login</a></h3>
+
+    {% if loged %}
+        <h3><a href="/logout">Logout</a></h3>
+    {% else %}
+        <h3><a href="/login">Login</a></h3>
+    {% endif %}
+
 {% endblock %}
