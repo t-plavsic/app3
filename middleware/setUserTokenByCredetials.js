@@ -21,6 +21,7 @@ var setUserTokenByCredetials = (req, res, next) => {
             });
 
             req.userToken = userToken;
+            
             //??req.header('x-auth', token);
             //res.json({userToken: userToken});
             //res.cookie('x-token', userToken, {maxAge:24*60*60*1000, httpOnly: true});
@@ -28,8 +29,13 @@ var setUserTokenByCredetials = (req, res, next) => {
             next();
 
         }, (e) => {
-            res.redirect('/login');
-            //res.render('../login_get.njk', {message: e});
+            //e:
+            //'User not found.'
+            //'Invalid password.'
+            req.setUserTokenError = e;
+            next();
+            //next(e);
+            //res.render('./login_get.njk', {err: e, title: 'LOGIN (try again..)'});
         });
 
     /*     

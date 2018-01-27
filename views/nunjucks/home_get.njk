@@ -6,16 +6,21 @@
 {% endblock %}
 
 {% block body %}
+{{userError}}
 {% endblock %}
 
 {% block left %}
-<h3><a href="/rotacija">Rotacija</a></h3>
-<h3><a href="/todos">TODO</a></h3>
+    {% if logged %}
+        <h3><a href="/rotacija">Rotacija</a></h3>
+        <h3><a href="/todos">TODO</a></h3>
+    {% endif %}
 {% endblock %}
 
 {% block right %}
 
-    {% if loged %}
+    <h4>User: [{{username}}]</h4>
+
+    {% if logged %}
         <h3><a href="/logout">Logout</a></h3>
     {% else %}
         <h3><a href="/login">Login</a></h3>

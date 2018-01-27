@@ -12,10 +12,12 @@ var getUserFromToken = (req, res, next) => {
         // verifies secret and checks exp
         jwt.verify(userToken, config.secret, function (err, decodedUserToken) {
             if (err) {
-                return res.status(401).json({
+/*                 return res.status(401).json({
                     success: false,
                     message: '401 Unauthorized. Token not valid.'
-                });
+                }); */
+                req.userError = '401 Unauthorized. Token not valid.';
+                next();
             } else {
                 // if everything is good, save to request for use in other routes               
                 req.user = decodedUserToken;
@@ -25,10 +27,14 @@ var getUserFromToken = (req, res, next) => {
     } else {
         // if there is no token
         // return an error
-        return res.status(403).json({
+
+        /*  return res.status(403).json({
             success: false,
             message: '403 Forbidden.No token provided.'
-        });
+            }); 
+        */
+        req.userError = '403 Forbidden.No token provided.';
+        next();
     }
 };
 

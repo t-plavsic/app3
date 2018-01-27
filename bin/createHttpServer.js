@@ -18,9 +18,9 @@ module.exports = function (http, port, app, debug) {
     //-----------------------------------------------------------
 
    //SOCKET.IO
-   const io = require('./socket_io');
-   io(server);
-   
+    //const io = require('./socket_io');
+    //io(server);
+    
     /**
      * Event listener for HTTP server "error" event.
      */
