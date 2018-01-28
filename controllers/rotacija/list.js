@@ -6,6 +6,6 @@ module.exports = function (req, res) {
     Rotacija.find({}).sort( { datumFuture: 1 } )
         .exec(function (err, data) {
             if (err) { return next(err); }
-            res.render('rotacija/rotacija_list', { title: 'LISTA - rotacija', rotacija_list: data });
+            res.render('rotacija/rotacija_list', { title: 'LISTA - rotacija', rotacija_list: data, username: req.user.username });
         });
 }

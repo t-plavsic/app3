@@ -8,14 +8,14 @@ var ObjectID = require('mongodb').ObjectID;
 
 
 router.get('/', (req, res) => {
-    res.render('todos/index.njk', { title: 'TODO-index' });
+    res.render('todos/index.njk', { title: 'TODO-index', username: req.user.username });
 });
 
 router.get('/list', (req, res) => {
 
     Todo.find({}).then((todos) => {
         //res.send({ todos });
-        res.render('todos/todos_list.njk', { todos });
+        res.render('todos/todos_list.njk', { todos, username: req.user.username });
     }, (e) => {
         res.status(400).send(e);
     });
