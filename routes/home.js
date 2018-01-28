@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var getUserFromToken = require('../middleware/getUserFromToken');
 
-router.get('/', getUserFromToken, (req, res) => {
+router.get('/', (req, res) => {
 
     if (req.user) {
         res.render('./home_get.njk', {

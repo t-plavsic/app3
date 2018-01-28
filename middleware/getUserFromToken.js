@@ -33,7 +33,7 @@ var getUserFromToken = (req, res, next) => {
             message: '403 Forbidden.No token provided.'
             }); 
         */
-        req.userError = '403 Forbidden.No token provided.';
+        req.userError = '403 Forbidden. No token provided.';
         next();
     }
 };
