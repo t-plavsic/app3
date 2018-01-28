@@ -1,9 +1,9 @@
-var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
-var getUserFromToken = require('../middleware/getUserFromToken');
 
 router.get('/', (req, res) => {
+
+    //console.log(req.header('x-auth'));//undefined
 
     if (req.user) {
         res.render('./home_get.njk', {

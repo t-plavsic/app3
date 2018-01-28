@@ -9,5 +9,7 @@
 
 module.exports = {
     dbUrl: 'mongodb://localhost:27017/db0',
-    secret: 'myLocalSecret...'
-};
+    secret: 'myLocalSecret...',  
+    tokenExpireTime: 8*60*60 ,      // 8*60*60  or '8h'
+    cookieMaxAge:    8*60*60*1000 
+};  

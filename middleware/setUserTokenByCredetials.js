@@ -16,13 +16,13 @@ var setUserTokenByCredetials = (req, res, next) => {
                 username: user.username,
                 accessRole: user.tokens[0].access
             }
-            var userToken = jwt.sign(usr, config.secret, {
-                expiresIn: '8h' // expires in 8 hours
+            var userToken = jwt.sign(usr, config.secret, {              
+                expiresIn: config.tokenExpireTime
             });
 
             req.userToken = userToken;
             
-            //??req.header('x-auth', token);
+            //res.header('x-auth', token);
             //res.json({userToken: userToken});
             //res.cookie('x-token', userToken, {maxAge:24*60*60*1000, httpOnly: true});
 
@@ -32,7 +32,7 @@ var setUserTokenByCredetials = (req, res, next) => {
             //e:
             //'User not found.'
             //'Invalid password.'
-            req.setUserTokenError = e;
+            req.userTokenError = e;
             next();
             //next(e);
             //res.render('./login_get.njk', {err: e, title: 'LOGIN (try again..)'});
@@ -68,6 +68,25 @@ var setUserTokenByCredetials = (req, res, next) => {
                     });
                 }
             }
+        });
+    */
+
+
+    /*     
+        User.findByCredentials(req.body.username, req.body.password)
+        .then((user) => {
+            //user is found, password is ok
+                res.cookie('x-token', user.tokens[0].token, {maxAge:24*60*60*1000, httpOnly: true});
+            //res.cookie('x-token', req.userToken, {maxAge:24*60*60*1000, httpOnly: true});        
+                res.redirect('/');
+        })
+        .catch((e) => {
+            //e = 'User not found.'
+            //e = 'Invalid password.'
+
+            res.render('./login_get.njk', {err: e, title: 'LOGIN (again)'});
+            //res.redirect('/login');
+            //res.status(401).send(e);
         });
     */
 
