@@ -111,12 +111,4 @@ var value = JSON.stringify(obj);
 console.log(value);
 ///////////////////////////////////
 
-
-
-
-
-
-
-
-
  */

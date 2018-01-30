@@ -7,7 +7,7 @@ var requireUser = require('../middleware/requireUser');
 //Set userToken
 router.use('/login',require('./login'))
 router.use('/logout',require('./logout'))
-//router.use('/users',require('./users'))
+router.use('/users',require('./users'))
 
 //Get logged user
 router.use(getUserFromToken)
