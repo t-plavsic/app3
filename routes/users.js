@@ -90,7 +90,26 @@ module.exports = router;
   }
 }
 
+///////////////////////////////////
+var obj = {
+  username: "dr",
+  email: "doktor.amb.plavsic@gmail.com",
+  password:"dr",
+  roles: {
+    isAdmin: true,
+    dbCollection: {
+      canCreate: ["users","rotacije", "todos"],
+      canRead:   ["users","rotacije", "todos"],
+      canEdit:   ["users","rotacije", "todos'"],
+      canDelete: ["users","rotacije", "todos"]
+    }
+  }
+};
 
+var value = JSON.stringify(obj);
+
+console.log(value);
+///////////////////////////////////
 
 
 
