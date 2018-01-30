@@ -17,8 +17,9 @@ router.get('/', function (req, res, next) {
 
 // POST /users
 router.post('/', (req, res) => {
-  var body = _.pick(req.body, ['email', 'username', 'password']);
+  var body = _.pick(req.body, ['email', 'username', 'password', 'roles']);
   var user = new User(body);
+  //user.markModified('roles');
 
   user.save().then(() => {
     return user.generateAuthToken();
@@ -57,3 +58,46 @@ router.delete('/me/token', authenticate, (req, res) => {
 
 module.exports = router;
 
+
+/* 
+{
+  "username": "dr",
+  "email": "doktor.amb.plavsic@gmail.com",
+  "password":"dr",
+  "roles": {
+    "isAdmin": true,
+    "dbCollection": {
+      "canCreate": ["users","rotacije", "todos"],
+      "canRead":   ["users","rotacije", "todos"],
+      "canEdit":   ["users","rotacije", "todos'"],
+      "canDelete": ["users","rotacije", "todos"]
+    }
+  }
+}
+
+{
+  "username": "sr",
+  "email": "sestra.amb.plavsic@gmail.com",
+  "password":"sr",
+  "roles": {
+    "isAdmin": false,
+    "dbCollection": {
+      "canCreate": ["rotacije", "todos"],
+      "canRead":   ["rotacije", "todos"],
+      "canEdit":   ["rotacije", "todos'"],
+      "canDelete": ["rotacije", "todos"]
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+ */

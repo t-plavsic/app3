@@ -21,7 +21,9 @@ var todoSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId
     //,required: true
   }
-});
+},
+  { collection: 'todos' }
+);
 
 // Virtual for rotacija's URL
 todoSchema

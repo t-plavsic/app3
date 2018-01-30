@@ -8,44 +8,58 @@ const bcrypt = require('bcryptjs');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true,
-        trim: true,
-        minlength: 1
 
-      },    
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        trim: true,
-        minlength: 1,
-        validate: {
-          validator: validator.isEmail,
-          message: '{VALUE} is not a valid email'
-        }
-      },
-      password: {
-        type: String,
-        required: true,
-        minlength: 2
-      },
-      hashedPassword: {
-        type: String
-      },
-      tokens: [{
-        access: {
-          type: String,
-          required: true
-        },
-        token: {
-          type: String,
-          required: true
-        }
-      }]
-});
+  tokens: [{
+    access: {
+      type: String,
+      required: true
+    },
+    token: {
+      type: String,
+      required: true
+    }
+  }],
+  roles: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
+    dbCollection: {
+      canCreate: [ String ],
+      canRead: [{ type: String }],
+      canEdit: [{ type: String }],
+      canDelete: [{ type: String }],
+    },
+  },
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true,
+    minlength: 1
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true,
+    minlength: 1,
+    validate: {
+      validator: validator.isEmail,
+      message: '{VALUE} is not a valid email'
+    }
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 2
+  },
+  hashedPassword: {
+    type: String
+  }
+},
+  { collection: 'users' }
+);
 
 userSchema.methods.toJSON = function () {
   var user = this;
@@ -57,9 +71,9 @@ userSchema.methods.toJSON = function () {
 userSchema.methods.generateAuthToken = function () {
   var user = this;
   var access = 'auth';
-  var token = jwt.sign({_id: user._id.toHexString(), access}, config.secret).toString();
+  var token = jwt.sign({ _id: user._id.toHexString(), access }, config.secret).toString();
 
-  user.tokens.push({access, token});
+  user.tokens.push({ access, token });
 
   return user.save().then(() => {
     return token;
@@ -101,7 +115,7 @@ userSchema.pre('save', function (next) {
 userSchema.statics.findByCredentials = function (username, password) {
   var User = this;
 
-  return User.findOne({username}).then((user) => {
+  return User.findOne({ username }).then((user) => {
     if (!user) {
       return Promise.reject('User not found.');
     }
@@ -124,7 +138,7 @@ userSchema.methods.removeToken = function (token) {
 
   return user.update({
     $pull: {
-      tokens: {token}
+      tokens: { token }
     }
   });
 };
