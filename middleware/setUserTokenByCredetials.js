@@ -11,11 +11,28 @@ var setUserTokenByCredetials = (req, res, next) => {
 
             // user is found and password is right
             // create a token
+
+            //console.log('canCreate: ', user.roles.dbCollection.canCreate);
+            //console.log('user.roles: ', user.roles);
+            //JSON.stringify(user.roles);
+
+            /*           
+               var usr = {
+                _id: user._id.toHexString(),
+                username: user.username,
+                accessRole: user.tokens[0].access,
+                roles: user.roles
+            }
+            */
+
             var usr = {
                 _id: user._id.toHexString(),
                 username: user.username,
                 accessRole: user.tokens[0].access
             }
+
+            //console.log('usr: ', usr);
+
             var userToken = jwt.sign(usr, config.secret, {              
                 expiresIn: config.tokenExpireTime
             });
