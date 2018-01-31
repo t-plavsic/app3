@@ -1,6 +1,7 @@
 var User = require('../models/userModel');
 var jwt = require('jsonwebtoken');
 var config = require('../config');
+var _ = require('underscore');
 
 var getUserFromToken = (req, res, next) => {
 
@@ -10,6 +11,7 @@ var getUserFromToken = (req, res, next) => {
 
     User.findByToken(userToken).then((foundUser) => {
         
+    /*         
         var user = {
             username: foundUser.username,
             email: foundUser.email,
@@ -22,10 +24,13 @@ var getUserFromToken = (req, res, next) => {
                     canDelete: foundUser.roles.dbCollection.canDelete
                 }
             }
-        }
+        } 
+    */
+
+        var user = _.pick(foundUser, 'username', 'email', 'roles');
 
         req.user = user
-            console.log('req.user: ', req.user);
+            //console.log('req.user: ', req.user.roles.dbCollection);
         next();
 
     }, (e) => {
