@@ -90,13 +90,13 @@ userSchema.statics.findByToken = function (token) {
     return Promise.reject();
   }
 
-/*   return User.findOne({findById
+/*   return User.findOne({
     '_id': decoded._id,
     'tokens.token': token,
     'tokens.access': 'auth'
   }); */
 
-  return User.findOne({
+  return User.findById({
     '_id': decoded._id
   });
 

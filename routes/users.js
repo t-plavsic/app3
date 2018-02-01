@@ -1,10 +1,12 @@
-var _ = require('lodash');
+
 var express = require('express');
 var router = express.Router();
 var User = require('../models/userModel');
 var authenticate = require('../middleware/authenticate');
+var _ = require('lodash');
 
-/* GET users listing. */
+
+// GET /users  
 router.get('/', function (req, res, next) {
   
   User.find({}).then((users) => {
@@ -22,7 +24,7 @@ router.post('/', (req, res) => {
   //user.markModified('roles');
 
   user.save().then(() => {
-    return user.generateAuthToken();
+    return user.generateAuthToken();  //token { _id: 'xxx', access: 'auth' }
   }).then((token) => {
     res.header('x-auth', token).send(user);
   }).catch((e) => {
@@ -43,10 +45,26 @@ router.post('/login', (req, res) => {
   });
 });
 
+
+
+/* 
+authenticate:
+    req.user  = user;
+    req.token = token;
+*/
+//GET /users/me
 router.get('/me', authenticate, (req, res) => {
   res.send(req.user);
 });
 
+
+/* 
+removeToken:
+    $pull: {
+      tokens: { token }
+    }
+*/
+//DELETE /users/me/token
 router.delete('/me/token', authenticate, (req, res) => {
   req.user.removeToken(req.token).then(() => {
     res.status(200).send('Token deleted');

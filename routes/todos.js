@@ -3,7 +3,6 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/userModel');
 var Todo = require('../models/todoModel');
-var authenticate = require('../middleware/authenticate');
 var ObjectID = require('mongodb').ObjectID;
 
 
