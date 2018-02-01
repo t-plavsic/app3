@@ -1,7 +1,7 @@
 var User = require('../models/userModel');
 var jwt = require('jsonwebtoken');
 var config = require('../config');
-var _ = require('underscore');
+var _ = require('lodash');
 
 var getUserFromToken = (req, res, next) => {
 
