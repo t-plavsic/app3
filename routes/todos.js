@@ -1,15 +1,18 @@
-var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/userModel');
 var Todo = require('../models/todoModel');
 var ObjectID = require('mongodb').ObjectID;
+var _ = require('lodash');
 
 
+//GET /todos
 router.get('/', (req, res) => {
+    
     res.render('todos/index.njk', { title: 'TODO-index', username: req.user.username });
 });
 
+//GET /todos/list
 router.get('/list', (req, res) => {
 
     Todo.find({}).then((todos) => {
@@ -21,10 +24,12 @@ router.get('/list', (req, res) => {
 
 });
 
+//GET /todos/create
 router.get('/create', (req, res) => {
     res.render('todos/create_get.njk', { title: 'NOVI UNOS - todos' });
 });
 
+//POST /todos/create
 router.post('/create', (req, res) => {
     var todo = new Todo({
         text: req.body.text,
@@ -38,7 +43,7 @@ router.post('/create', (req, res) => {
 
 });
 
-
+//GET /todos/:id/delete
 router.get('/:id/delete', (req, res) => {
     var id = req.params.id;
 
@@ -61,6 +66,7 @@ router.get('/:id/delete', (req, res) => {
 
 });
 
+//POST /todos/:id/delete
 router.post('/:id/delete', (req, res) => {
     var id = req.params.id;
 
@@ -82,6 +88,7 @@ router.post('/:id/delete', (req, res) => {
     });
 });
 
+//GET /todos/:id/update
 router.get('/:id/update', (req, res) => {
     var id = req.params.id;
 
@@ -104,6 +111,7 @@ router.get('/:id/update', (req, res) => {
 
 });
 
+//POST /todos/:id/update
 router.post('/:id/update', (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['text']);
